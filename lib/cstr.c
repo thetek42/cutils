@@ -31,7 +31,7 @@ strtrim (char *str)
  *          original string.
  */
 char *
-strtriml (const char *str)
+strtriml (char *str)
 {
     while (*str && isspace (*str))
         str++;
