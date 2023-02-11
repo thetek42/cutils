@@ -3,6 +3,20 @@
 #include <stdlib.h>
 #include "log.h"
 
+/**
+ * allocate memory using malloc() and print a fitting debug message
+ *
+ * @param   size: the number of bytes to allocate
+ * @param   file: the file in which malloc() was called
+ * @param   line: the source code line where malloc() was called
+ *
+ * @return  the pointer to the allocated memory, or NULL in case of error
+ *
+ * @errno   see malloc(3)
+ *
+ * @usage   the header `debug.h` defines a macro `malloc(size)` that
+ *          automatically inserts filename and line.
+ */
 void *
 debug_malloc (size_t size, const char *file, size_t line)
 {
@@ -17,6 +31,21 @@ debug_malloc (size_t size, const char *file, size_t line)
     return ptr;
 }
 
+/**
+ * reallocate memory using realloc() and print a fitting debug message
+ *
+ * @param   ptr: the pointer to reallocate
+ * @param   size: the new number of bytes
+ * @param   file: the file in which realloc() was called
+ * @param   line: the source code line where realloc() was called
+ *
+ * @return  the pointer to the reallocated memory, or NULL in case of error
+ *
+ * @errno   see realloc(3)
+ *
+ * @usage   the header `debug.h` defines a macro `realloc(ptr, size)` that
+ *          automatically inserts filename and line.
+ */
 void *
 debug_realloc (void *ptr, size_t size, const char *file, size_t line)
 {
@@ -35,6 +64,16 @@ debug_realloc (void *ptr, size_t size, const char *file, size_t line)
     return new_ptr;
 }
 
+/**
+ * free memory using free() and print a fitting debug message
+ *
+ * @param   ptr: the pointer to free
+ * @param   file: the file in which free() was called
+ * @param   line: the source code line where free() was called
+ *
+ * @usage   the header `debug.h` defines a macro `free(ptr)` that automatically
+ *          inserts filename and line.
+ */
 void
 debug_free (void *ptr, const char *file, size_t line)
 {
