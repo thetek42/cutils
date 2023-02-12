@@ -1,6 +1,7 @@
 #include "test.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "common.h"
 #include "log.h"
 
 #define TEST_GROUP_ENTRIES_ALLOC 16
@@ -17,11 +18,7 @@ test_suite_new (void)
     test_suite_t suite;
 
     suite = (test_suite_t) {0};
-    if ((suite.entries = malloc ((sizeof *(suite.entries)) * TEST_GROUP_ENTRIES_ALLOC)) == NULL)
-    {
-        log_error ("failed to allocate memory\n");
-        exit (EXIT_FAILURE);
-    }
+    suite.entries = smalloc ((sizeof *(suite.entries)) * TEST_GROUP_ENTRIES_ALLOC);
     suite.entries[0] = NULL;
     suite.entries_cap = TEST_GROUP_ENTRIES_ALLOC;
 
@@ -51,11 +48,7 @@ test_suite_add (test_suite_t *suite, test_entry_func_t func)
     if (suite->entries_len == suite->entries_cap - 1)
     {
         suite->entries_cap += TEST_GROUP_ENTRIES_ALLOC;
-        if ((suite->entries = realloc (suite->entries, (sizeof *(suite->entries)) * suite->entries_cap)) == NULL)
-        {
-            log_error ("failed to allocate memory\n");
-            exit (EXIT_FAILURE);
-        }
+        suite->entries = realloc (suite->entries, (sizeof *(suite->entries)) * suite->entries_cap);
     }
     suite->entries[suite->entries_len] = func;
     suite->entries_len += 1;
