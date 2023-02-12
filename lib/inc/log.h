@@ -2,6 +2,7 @@
 #define CUTILS_LOG_H_
 
 #include <stddef.h>
+#include <stdlib.h>
 
 #define log_error(...) log_print (LOG_LEVEL_ERROR, __VA_ARGS__) /* print a log message with level error */
 #define log_warn(...) log_print (LOG_LEVEL_WARN, __VA_ARGS__) /* print a log message with level warning */
@@ -13,6 +14,8 @@
 #define log_info_fl(...) log_print_fl (LOG_LEVEL_INFO, __FILE__, __LINE__, __VA_ARGS__) /* print a log message with the current file and line and log level info */
 #define log_ok_fl(...) log_print_fl (LOG_LEVEL_OK, __FILE__, __LINE__, __VA_ARGS__) /* print a log message with the current file and line and log level ok */
 #define log_debug_fl(...) log_print_fl (LOG_LEVEL_DEBUG, __FILE__, __LINE__, __VA_ARGS__) /* print a log message with the current file and line and log level debug */
+#define log_fatal(...) do { log_print (LOG_LEVEL_ERROR, __VA_ARGS__); exit (EXIT_FAILURE); } while (0) /* print a log message with level error and exit */
+#define log_fatal_fl(...) do { log_print_fl (LOG_LEVEL_ERROR, __FILE__, __LINE__, __VA_ARGS__) exit (EXIT_FAILURE); } while (0) /* print a log message with the current file and line and log level error and exit */
 
 typedef enum
 {

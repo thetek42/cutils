@@ -14,10 +14,7 @@ smalloc (size_t size)
 
     ptr = malloc (size);
     if (!ptr)
-    {
-        log_error ("failed to allocate %zu bytes of memory\n", size);
-        exit (EXIT_FAILURE);
-    }
+        log_fatal ("failed to allocate %zu bytes of memory\n", size);
 
     return ptr;
 }
@@ -33,10 +30,7 @@ srealloc (void *ptr, size_t size)
 {
     ptr = realloc (ptr, size);
     if (!ptr)
-    {
-        log_error ("failed to allocate %zu bytes of memory\n", size);
-        exit (EXIT_FAILURE);
-    }
+        log_fatal ("failed to allocate %zu bytes of memory\n", size);
 
     return ptr;
 }
