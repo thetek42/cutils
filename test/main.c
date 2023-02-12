@@ -12,48 +12,48 @@
 test_results_t
 test_cstr (void)
 {
-    test_suite_t suite;
+    test_group_t group;
     size_t len;
 
-    suite = test_suite_new ();
+    group = test_group_new ();
 
     char s[] = "    Hello, World!\n    ";
     len = strtrimr (s);
-    test_add (&suite, test_assert_op (len, ==, 17), "strtrimr return value");
-    test_add (&suite, test_assert_op (strlen (s), ==, 17), "strtrimr length");
+    test_add (&group, test_assert (len == 17), "strtrimr return value");
+    test_add (&group, test_assert (strlen (s) == 17), "strtrimr length");
     char *sn = strtriml (s);
-    test_add (&suite, test_assert_op (sn, ==, s + 4), "strtriml pointer");
-    test_add (&suite, test_assert_op (strlen (sn), ==, 13), "strtriml length");
+    test_add (&group, test_assert (sn == s + 4), "strtriml pointer");
+    test_add (&group, test_assert (strlen (sn) == 13), "strtriml length");
     char s2[] = "    Hello, World!\n    ";
     sn = strtrim (s2);
-    test_add (&suite, test_assert_op (sn, ==, s2 + 4), "strtrim pointer");
-    test_add (&suite, test_assert_op (strlen (s2), ==, 17), "strtrim original pointer length");
-    test_add (&suite, test_assert_op (strlen (sn), ==, 13), "strtrim new pointer length");
+    test_add (&group, test_assert (sn == s2 + 4), "strtrim pointer");
+    test_add (&group, test_assert (strlen (s2) == 17), "strtrim original pointer length");
+    test_add (&group, test_assert (strlen (sn) == 13), "strtrim new pointer length");
 
     char *s3 = "Hello, World!\n";
-    test_add (&suite, test_assert_op (strcount (s3, 'l'), ==, 3), "strcount multiple occurances");
-    test_add (&suite, test_assert_op (strcount (s3, '\n'), ==, 1), "strcount one occurance");
-    test_add (&suite, test_assert_op (strcount (s3, 'X'), ==, 0), "strcount no occurance");
+    test_add (&group, test_assert (strcount (s3, 'l') == 3), "strcount multiple occurances");
+    test_add (&group, test_assert (strcount (s3, '\n') == 1), "strcount one occurance");
+    test_add (&group, test_assert (strcount (s3, 'X') == 0), "strcount no occurance");
 
     char s4[] = "Hello, World!\n";
     char s5[] = "Hello, World!\n";
     strdowncase (s4);
     strupcase (s5);
-    test_add (&suite, test_assert (!strcmp (s4, "hello, world!\n")), "strdowncase");
-    test_add (&suite, test_assert (!strcmp (s5, "HELLO, WORLD!\n")), "strupcase");
+    test_add (&group, test_assert (!strcmp (s4, "hello, world!\n")), "strdowncase");
+    test_add (&group, test_assert (!strcmp (s5, "HELLO, WORLD!\n")), "strupcase");
     
-    return test_suite_get_results (&suite);
+    return test_group_get_results (&group);
 }
 
 int
 main (void)
 {
-    test_group_t group;
+    test_suite_t suite;
 
-    group = test_group_new ();
-    test_group_add (&group, test_cstr);
-    test_group_run (&group);
-    test_group_free (&group);
+    suite = test_suite_new ();
+    test_suite_add (&suite, test_cstr);
+    test_suite_run (&suite);
+    test_suite_free (&suite);
 
     return EXIT_SUCCESS;
 }

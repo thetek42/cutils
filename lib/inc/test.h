@@ -4,36 +4,39 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define test_add(suite, success_and_assertion, name) test_suite_add (suite, success_and_assertion, name, __FILE__, __LINE__)
-#define test_assert_op(a, op, b) ((a) op (b)), (#a " " #op " " #b)
-#define test_assert(a) ((bool) a), (#a)
+#define test_add(group, success_and_assertion, name) test_group_add (group, success_and_assertion, name, __FILE__, __LINE__) /* add a test to a test group. source file and line will be inserted automatically. to be used with the `test_assert()` macro. */
+#define test_assert(a) ((bool) (a)), (#a) /* provides the `success` and `assertion` parameters for `test_add()` / `test_group_add()` */
 
+/* results of a test group or suite */
 typedef struct
 {
-    size_t success;
-    size_t failure;
+    size_t success; /* number of successful tests */
+    size_t failure; /* number of failed tests */
 } test_results_t;
 
+/* function signature for test group functions */
 typedef test_results_t (*test_entry_func_t) (void);
 
+/* test suite. a suite contains multiple test groups. */
 typedef struct
 {
-    test_entry_func_t *entries;
-    size_t entries_len;
-    size_t entries_cap;
-} test_group_t;
+    test_entry_func_t *entries; /* test groups as executable function pointers */
+    size_t entries_len; /* number of functions */
+    size_t entries_cap; /* allocated space for functions */
+} test_suite_t;
 
+/* test group. contains multiple tests. */
 typedef struct
 {
     test_results_t results;
-} test_suite_t;
+} test_group_t;
 
-test_group_t test_group_new (void);
-void test_group_free (test_group_t *group);
-void test_group_add (test_group_t *group, test_entry_func_t func);
-test_results_t test_group_run (test_group_t *group);
-test_suite_t test_suite_new (void);
-void test_suite_add (test_suite_t *suite, bool success, const char *assertion, const char *name, const char *file, size_t line);
-test_results_t test_suite_get_results (test_suite_t *suite);
+test_suite_t test_suite_new (void); /* create a new test suite */
+void test_suite_free (test_suite_t *suite); /* free dynamically allocated memory occupied by a test suite */
+void test_suite_add (test_suite_t *suite, test_entry_func_t func); /* add a test group function to a test suite */
+test_results_t test_suite_run (test_suite_t *suite); /* run the entries within a test suite and print an informational message */
+test_group_t test_group_new (void); /* create a new test group */
+void test_group_add (test_group_t *group, bool success, const char *assertion, const char *name, const char *file, size_t line); /* add a test to a test group, print an error message if the test failed */
+test_results_t test_group_get_results (test_group_t *group); /* get results of a test group. used for returning the status from a test group */
 
 #endif // CUTILS_TEST_H_
