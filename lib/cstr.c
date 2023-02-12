@@ -12,7 +12,9 @@
  *
  * @return  a pointer to the beginning of the trimmed string. the string is not
  *          copied, and the returned pointer points to somewhere within the
- *          original string.
+ *          original string. returns null on error.
+ *
+ * @errno   EINVAL: `str` is a null pointer
  */
 char *
 strtrim (char *str)
@@ -31,7 +33,9 @@ strtrim (char *str)
  *
  * @return  a pointer to the beginning of the trimmed string. the string is not
  *          copied, and the returned pointer points to somewhere within the
- *          original string.
+ *          original string. returns null on error.
+ *
+ * @errno   EINVAL: `str` is a null pointer
  */
 char *
 strtriml (char *str)
@@ -51,7 +55,9 @@ strtriml (char *str)
  *
  * @param   str: the string to trim
  *
- * @return  the new string length
+ * @return  the new string length, or -1 on error.
+ *
+ * @errno   EINVAL: `str` is a null pointer
  */
 ssize_t
 strtrimr (char *str)
@@ -68,6 +74,16 @@ strtrimr (char *str)
     return i;
 }
 
+/**
+ * count number of occurances of a character within a string.
+ *
+ * @param   str: the string to search in
+ * @param   c: the character to search for
+ *
+ * @return  the amount of occurances, or -1 on error.
+ *
+ * @errno   EINVAL: `str` is a null pointer
+ */
 ssize_t
 strcount (const char *str, char c)
 {
@@ -83,6 +99,13 @@ strcount (const char *str, char c)
     return count;
 }
 
+/**
+ * transform all uppercase letters of a string into lowercase letters.
+ *
+ * @param   str: the string to convert
+ *
+ * @errno   EINVAL: `str` is a null pointer
+ */
 void
 strdowncase (char *str)
 {
@@ -97,6 +120,13 @@ strdowncase (char *str)
         }
 }
 
+/**
+ * transform all lowercase letters of a string into uppercase letters.
+ *
+ * @param   str: the string to convert
+ *
+ * @errno   EINVAL: `str` is a null pointer
+ */
 void
 strupcase (char *str)
 {
