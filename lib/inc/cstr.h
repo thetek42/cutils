@@ -7,5 +7,7 @@ char *strtrim (char *str); /* trim whitespace of a cstring (both beginning and e
 char *strtriml (char *str); /* trim whitespace of a cstring on the left (beginning of string). */
 size_t strtrimr (char *str); /* trim whitespace of a cstring on the right (end of string) */
 size_t strcount (const char *str, char c);
+void strdowncase (char *str);
+void strupcase (char *str);
 
 #endif // CUTILS_CSTR_H_

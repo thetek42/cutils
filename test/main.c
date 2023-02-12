@@ -34,6 +34,13 @@ test_cstr (void)
     test_add (&suite, test_assert_op (strcount (s3, 'l'), ==, 3), "strcount multiple occurances");
     test_add (&suite, test_assert_op (strcount (s3, '\n'), ==, 1), "strcount one occurance");
     test_add (&suite, test_assert_op (strcount (s3, 'X'), ==, 0), "strcount no occurance");
+
+    char s4[] = "Hello, World!\n";
+    char s5[] = "Hello, World!\n";
+    strdowncase (s4);
+    strupcase (s5);
+    test_add (&suite, test_assert (!strcmp (s4, "hello, world!\n")), "strdowncase");
+    test_add (&suite, test_assert (!strcmp (s5, "HELLO, WORLD!\n")), "strupcase");
     
     return test_suite_get_results (&suite);
 }

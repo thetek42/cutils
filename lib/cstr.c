@@ -73,3 +73,25 @@ strcount (const char *str, char c)
     
     return count;
 }
+
+void
+strdowncase (char *str)
+{
+    while (*str)
+    {
+        if (isupper (*str))
+            *str += 0x20;
+        str++;
+    }
+}
+
+void
+strupcase (char *str)
+{
+    while (*str)
+    {
+        if (islower (*str))
+            *str -= 0x20;
+        str++;
+    }
+}
