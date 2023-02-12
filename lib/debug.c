@@ -96,7 +96,7 @@ debug_free (void *ptr, const char *file, size_t line)
  *          automatically inserts filename and line.
  */
 void *
-debug_malloc (size_t size, const char *file, size_t line)
+debug_smalloc (size_t size, const char *file, size_t line)
 {
     void *ptr;
 
@@ -117,13 +117,11 @@ debug_malloc (size_t size, const char *file, size_t line)
  *
  * @return  the pointer to the reallocated memory, or NULL in case of error
  *
- * @errno   see realloc(3)
- *
- * @usage   the header `debug.h` defines a macro `realloc(ptr, size)` that
+ * @usage   the header `debug.h` defines a macro `srealloc(ptr, size)` that
  *          automatically inserts filename and line.
  */
 void *
-debug_realloc (void *ptr, size_t size, const char *file, size_t line)
+debug_srealloc (void *ptr, size_t size, const char *file, size_t line)
 {
     void *new_ptr;
     uintptr_t old_ptr;
