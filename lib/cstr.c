@@ -140,3 +140,25 @@ strupcase (char *str)
             str++;
         }
 }
+
+/**
+ * check if a string only consists of whitespace characters.
+ *
+ * @param   str: the string to check
+ *
+ * @return  true if the string only consists of whitespace characters, or false
+ *          if other characters are present. false in case of error.
+ *
+ * @errno   EINVAL: `str` is a null pointer
+ */
+bool
+strisblank (const char *str)
+{
+    if (str == NULL) return errno = EINVAL, false;
+
+    while (*str)
+        if (!isspace (*str++))
+            return false;
+
+    return true;
+}

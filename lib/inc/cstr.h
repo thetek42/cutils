@@ -1,6 +1,7 @@
 #ifndef CUTILS_CSTR_H_
 #define CUTILS_CSTR_H_
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <sys/types.h>
 
@@ -10,5 +11,6 @@ ssize_t strtrimr (char *str); /* trim whitespace of a cstring on the right (end 
 ssize_t strcount (const char *str, char c); /* count number of occurances of a character within a string */
 void strdowncase (char *str); /* transform all uppercase letters of a string into lowercase letters */
 void strupcase (char *str); /* transform all lowercase letters of a string into uppercase letters */
+bool strisblank (const char *str); /* check if a string only consists of whitespace characters */
 
 #endif // CUTILS_CSTR_H_

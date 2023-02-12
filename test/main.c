@@ -42,6 +42,11 @@ test_cstr (void)
     test_add (&group, test_assert (!strcmp (s4, "hello, world!\n")), "strdowncase");
     test_add (&group, test_assert (!strcmp (s5, "HELLO, WORLD!\n")), "strupcase");
     
+    char *s6 = "    x    ";
+    char *s7 = " \r\n\t\v\f";
+    test_add (&group, test_assert (!strisblank (s6)), "strisblank false");
+    test_add (&group, test_assert (strisblank (s7)), "strisblank true");
+
     return test_group_get_results (&group);
 }
 
