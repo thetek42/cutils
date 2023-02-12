@@ -29,6 +29,11 @@ test_cstr (void)
     test_add (&suite, test_assert_op (sn, ==, s2 + 4), "strtrim pointer");
     test_add (&suite, test_assert_op (strlen (s2), ==, 17), "strtrim original pointer length");
     test_add (&suite, test_assert_op (strlen (sn), ==, 13), "strtrim new pointer length");
+
+    char *s3 = "Hello, World!\n";
+    test_add (&suite, test_assert_op (strcount (s3, 'l'), ==, 3), "strcount multiple occurances");
+    test_add (&suite, test_assert_op (strcount (s3, '\n'), ==, 1), "strcount one occurance");
+    test_add (&suite, test_assert_op (strcount (s3, 'X'), ==, 0), "strcount no occurance");
     
     return test_suite_get_results (&suite);
 }

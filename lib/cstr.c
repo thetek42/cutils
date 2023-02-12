@@ -60,3 +60,16 @@ strtrimr (char *str)
 
     return i;
 }
+
+size_t
+strcount (const char *str, char c)
+{
+    size_t count;
+
+    count = 0;
+    while (*str)
+        if (*str++ == c)
+            count += 1;
+    
+    return count;
+}
