@@ -1,5 +1,6 @@
 #include "cstr.h"
 #include <ctype.h>
+#include <errno.h>
 #include <string.h>
 
 /**
@@ -16,6 +17,8 @@
 char *
 strtrim (char *str)
 {
+    if (str == NULL) return errno = EINVAL, NULL;
+
     strtrimr (str);
     return strtriml (str);
 }
@@ -33,6 +36,8 @@ strtrim (char *str)
 char *
 strtriml (char *str)
 {
+    if (str == NULL) return errno = EINVAL, NULL;
+
     while (*str && isspace (*str))
         str++;
 
@@ -48,10 +53,12 @@ strtriml (char *str)
  *
  * @return  the new string length
  */
-size_t
+ssize_t
 strtrimr (char *str)
 {
     size_t len, i;
+
+    if (str == NULL) return errno = EINVAL, -1;
 
     i = len = strlen (str);
     while (i <= len && isspace (str[i - 1]))
@@ -61,10 +68,12 @@ strtrimr (char *str)
     return i;
 }
 
-size_t
+ssize_t
 strcount (const char *str, char c)
 {
     size_t count;
+
+    if (str == NULL) return errno = EINVAL, -1;
 
     count = 0;
     while (*str)
@@ -77,21 +86,27 @@ strcount (const char *str, char c)
 void
 strdowncase (char *str)
 {
-    while (*str)
-    {
-        if (isupper (*str))
-            *str += 0x20;
-        str++;
-    }
+    if (str == NULL)
+        errno = EINVAL;
+    else
+        while (*str)
+        {
+            if (isupper (*str))
+                *str += 0x20;
+            str++;
+        }
 }
 
 void
 strupcase (char *str)
 {
-    while (*str)
-    {
-        if (islower (*str))
-            *str -= 0x20;
-        str++;
-    }
+    if (str == NULL)
+        errno = EINVAL;
+    else
+        while (*str)
+        {
+            if (islower (*str))
+                *str -= 0x20;
+            str++;
+        }
 }
