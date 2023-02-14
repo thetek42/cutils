@@ -24,26 +24,33 @@ str_new_cap (str_t *str, size_t want_cap)
     str->cap = cap;
 }
 
-inline void
+inline int
 str_new_from (str_t *str, const char *src)
 {
-    str_new_from_len (str, src, strlen (src));
+    if (src)
+        return str_new_from_len (str, src, strlen (src)), 0;
+    else
+        return errno = EINVAL, -1;
 }
 
-void
+int
 str_new_from_len (str_t *str, const char *src, size_t len)
 {
     size_t cap;
 
+    if (!src)
+        return errno = EINVAL, -1;
     cap = max (next_pow_of_two (len + 1), STR_MIN_ALLOC);
     str->str = smalloc (cap * sizeof (char));
     str->len = len;
     str->cap = cap;
     strcpy (str->str, src);
+    return 0;
 }
 
 inline void
 str_free (str_t *str)
 {
-    free (str->str);
+    if (str)
+        free (str->str);
 }
