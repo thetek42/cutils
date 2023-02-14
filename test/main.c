@@ -7,6 +7,8 @@
 #define CUTILS_DEBUG_TRACE
 #include "debug.h"
 #include "log.h"
+#include "common.h"
+#include "str.h"
 #include "test.h"
 
 test_results_t
@@ -50,6 +52,51 @@ test_cstr (void)
     return test_group_get_results (&group);
 }
 
+test_results_t
+test_str (void)
+{
+    test_group_t group;
+    str_t str;
+    int res;
+    char *s;
+
+    group = test_group_new ();
+
+    res = str_new (&str);
+    test_add (&group, test_assert (str.str != NULL && str.cap > 0), "str_new");
+    str_free (&str);
+
+    res = str_new_cap (&str, 1000);
+    test_add (&group, test_assert (str.cap == next_pow_of_two (1000)), "str_new_cap");
+    str_free (&str);
+
+    s = "Hello, World!\n";
+    res = str_new_from (&str, s);
+    test_add (&group, test_assert (!strcmp (str.str, s)), "str_new_from .str");
+    test_add (&group, test_assert (str.len == strlen (s)), "str_new_from .len");
+    test_add (&group, test_assert (str.cap >= str.len), "str_new_from .cap");
+    test_add (&group, test_assert (res >= 0), "str_new_from success return value");
+    str_free (&str);
+
+    res = str_new_from (&str, NULL);
+    test_add (&group, test_assert (res < 0), "str_new_from failure return value");
+    if (res >= 0)
+        str_free (&str);
+
+    s = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+    str_new_from (&str, s);
+    res = str_append (&str, s);
+    test_add (&group, test_assert (!strncmp (str.str, s, strlen (s)) && !strncmp (str.str + strlen (s), s, strlen (s))), "str_append .str");
+    test_add (&group, test_assert (str.len = 2 * strlen (s)), "str_append .len");
+    test_add (&group, test_assert (str.cap = next_pow_of_two (2 * strlen (s))), "str_append .cap");
+    test_add (&group, test_assert (res >= 0), "str_append success return value");
+    res = str_append (&str, NULL);
+    test_add (&group, test_assert (res < 0), "str_append failure return value");
+    str_free (&str);
+
+    return test_group_get_results (&group);
+}
+
 int
 main (void)
 {
@@ -57,6 +104,7 @@ main (void)
 
     suite = test_suite_new ();
     test_suite_add (&suite, test_cstr);
+    test_suite_add (&suite, test_str);
     test_suite_run (&suite);
     test_suite_free (&suite);
 
