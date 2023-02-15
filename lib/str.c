@@ -259,3 +259,27 @@ str_is_blank (const str_t *str)
 {
     return strisblank (str->str);
 }
+
+/**
+ * transform all uppercase characters in a str_t string to lowercase
+ * characters. this will modify the string data.
+ *
+ * @param   str: the string to modify
+ */
+inline void
+str_downcase (str_t *str)
+{
+    strdowncase (str->str);
+}
+
+/**
+ * transform all lowercase characters in a str_t string to uppercase
+ * characters. this will modify the string data.
+ *
+ * @param   str: the string to modify
+ */
+inline void
+str_upcase (str_t *str)
+{
+    strupcase (str->str);
+}

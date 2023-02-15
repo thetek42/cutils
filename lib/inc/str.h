@@ -29,5 +29,7 @@ bool str_ends_with_len (const str_t *str, const char *find, size_t len); /* chec
 char *str_find (const str_t *str, const char *find); /* find a substring in a str_t string as a pointer. */
 ssize_t str_pos (const str_t *str, const char *find); /* find the index of a substring in a str_t string. */
 bool str_is_blank (const str_t *str); /* check if a string only consists of whitespace characters. */
+void str_downcase (str_t *str); /* transform all uppercase characters in a str_t string to lowercase */
+void str_upcase (str_t *str); /* transform all lowercase characters in a str_t string to uppercase */
 
 #endif // CUTILS_STR_H_
