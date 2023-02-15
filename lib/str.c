@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
+#include "cstr.h"
 
 #define STR_MIN_ALLOC 64 /* minimum allocation size for string data */
 
@@ -242,4 +243,19 @@ str_pos (const str_t *str, const char *find)
     if (pos)
         return pos - str->str;
     return -1;
+}
+
+/**
+ * check if a string only consists of whitespace characters. whitespaces
+ * include the following characters: ' ', '\n', '\r', '\t', '\v', '\f'.
+ *
+ * @param   str: the string to check
+ *
+ * @return  true if the string only consists of whitespace characters, or false
+ *          if other characters are present. false in case of error.
+ */
+inline bool
+str_is_blank (const str_t *str)
+{
+    return strisblank (str->str);
 }
