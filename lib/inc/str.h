@@ -32,5 +32,6 @@ bool str_is_blank (const str_t *str); /* check if a string only consists of whit
 void str_downcase (str_t *str); /* transform all uppercase characters in a str_t string to lowercase */
 void str_upcase (str_t *str); /* transform all lowercase characters in a str_t string to uppercase */
 void str_clone (const str_t *str, str_t *new); /* clone the contents of a str_t string into a new str_t string. */
+void str_resize (str_t *str, size_t cap); /* resize the allocated data of a str_t string. */
 
 #endif // CUTILS_STR_H_

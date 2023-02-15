@@ -114,14 +114,7 @@ str_append (str_t *str, const char *src)
 void
 str_append_len (str_t *str, const char *src, size_t len)
 {
-    size_t cap;
-
-    cap = max (next_pow_of_two (str->len + len + 1), STR_MIN_ALLOC);
-    if (cap > str->cap)
-    {
-        str->str = srealloc (str->str, cap * sizeof (char));
-        str->cap = cap;
-    }
+    str_resize (str, str->len + len + 1);
     strncpy (str->str + str->len, src, len);
     str->len += len;
     str->str[str->len] = '\0';
@@ -298,4 +291,21 @@ inline void
 str_clone (const str_t *str, str_t *new)
 {
     str_new_from_len (new, str->str, str->len);
+}
+
+/**
+ * resize the allocated data of a str_t string.
+ *
+ * @param   str: the string to expand
+ * @param   cap: the minimum amount of capacity to resize to
+ */
+void
+str_resize (str_t *str, size_t cap)
+{
+    cap = max (next_pow_of_two (cap), STR_MIN_ALLOC);
+    if (cap > str->len && cap != str->cap)
+    {
+        str->str = srealloc (str->str, cap * sizeof (char));
+        str->cap = cap;
+    }
 }
