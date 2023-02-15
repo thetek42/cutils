@@ -61,30 +61,30 @@ test_str (void)
 
     group = test_group_new ();
 
-    str_new (&str);
+    str = str_new ();
     test_add (&group, test_assert (str.str != NULL && str.cap > 0), "str_new");
     str_free (&str);
 
-    str_new_cap (&str, 1000);
+    str = str_new_cap (1000);
     test_add (&group, test_assert (str.cap == next_pow_of_two (1000)), "str_new_cap");
     str_free (&str);
 
     s = "Hello, World!\n";
-    str_new_from (&str, s);
+    str = str_new_from (s);
     test_add (&group, test_assert (!strcmp (str.str, s)), "str_new_from .str");
     test_add (&group, test_assert (str.len == strlen (s)), "str_new_from .len");
     test_add (&group, test_assert (str.cap >= str.len), "str_new_from .cap");
     str_free (&str);
 
     s = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-    str_new_from (&str, s);
+    str = str_new_from (s);
     str_append (&str, s);
     test_add (&group, test_assert (!strncmp (str.str, s, strlen (s)) && !strncmp (str.str + strlen (s), s, strlen (s))), "str_append .str");
     test_add (&group, test_assert (str.len = 2 * strlen (s)), "str_append .len");
     test_add (&group, test_assert (str.cap = next_pow_of_two (2 * strlen (s))), "str_append .cap");
     str_free (&str);
 
-    str_new_from (&str, s);
+    str = str_new_from (s);
     test_add (&group, test_assert (str_eq (&str, s)), "str_eq true");
     test_add (&group, test_assert (!str_eq (&str, "foo")), "str_eq false");
     test_add (&group, test_assert (str_cmp (&str, "A") > 0), "str_eq greater");

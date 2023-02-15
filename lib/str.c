@@ -10,72 +10,95 @@
 /**
  * initialize a str_t string and allocte some memory for the data
  *
- * @param   str: a pointer to the string to initialize. `str` has to be
- *               caller-allocated.
+ * @return  a new, empty str_t instance
  */
-void
-str_new (str_t *str)
+str_t
+str_new ()
 {
-    str->str = smalloc (STR_MIN_ALLOC * sizeof (char));
-    str->str[0] = '\0';
-    str->len = 0;
-    str->cap = STR_MIN_ALLOC;
+    str_t str;
+
+    str.str = smalloc (STR_MIN_ALLOC * sizeof (char));
+    str.str[0] = '\0';
+    str.len = 0;
+    str.cap = STR_MIN_ALLOC;
+
+    return str;
 }
 
 /**
  * initialize a str_t string with a given capacity (allocation size). can be
- * used in oder to reduce the amount of calls to realloc.
+ * used in oder to reduce the amount of calls to `realloc()`.
  *
- * @param   str: a pointer to the string to initialize. `str` has to be
- *               caller-allocated.
+ * @param   want_cap: the minimum wanted capacity
+ *
+ * @return  a new, empty str_t instance with given capacity.
  */
-void
-str_new_cap (str_t *str, size_t want_cap)
+str_t
+str_new_cap (size_t want_cap)
 {
     size_t cap;
+    str_t str;
 
     cap = max (next_pow_of_two (want_cap), STR_MIN_ALLOC);
-    str->str = smalloc (cap);
-    str->str[0] = '\0';
-    str->len = 0;
-    str->cap = cap;
+    str.str = smalloc (cap);
+    str.str[0] = '\0';
+    str.len = 0;
+    str.cap = cap;
+
+    return str;
 }
 
 /**
  * initialize a str_t string with a given data. the data will be copied into
  * the string.
  *
- * @param   str: a pointer to the string to initialize. `str` has to be
- *               caller-allocated.
  * @param   src: the data to put into the string
+ *
+ * @return  a new, empty str_t with given data.
  */
-inline void
-str_new_from (str_t *str, const char *src)
+inline str_t
+str_new_from (const char *src)
 {
-    return str_new_from_len (str, src, strlen (src));
+    return str_new_from_len (src, strlen (src));
 }
 
 /**
  * initialize a str_t string with a given data. the data will be copied into
  * the string. the length of the data is provided as a parameter.
  *
- * @param   str: a pointer to the string to initialize. `str` has to be
- *               caller-allocated.
  * @param   src: the data to put into the string
  * @param   len: the length of `src`. undefined behaviour occurs if `len !=
  *               strlen (src)`
+ *
+ * @return  a new, empty str_t with given data.
  */
-void
-str_new_from_len (str_t *str, const char *src, size_t len)
+str_t
+str_new_from_len (const char *src, size_t len)
 {
     size_t cap;
+    str_t str;
 
     cap = max (next_pow_of_two (len + 1), STR_MIN_ALLOC);
-    str->str = smalloc (cap * sizeof (char));
-    str->len = len;
-    str->cap = cap;
-    strncpy (str->str, src, len);
-    str->str[len] = '\0';
+    str.str = smalloc (cap * sizeof (char));
+    str.len = len;
+    str.cap = cap;
+    strncpy (str.str, src, len);
+    str.str[len] = '\0';
+
+    return str;
+}
+
+/**
+ * clone the contents of a str_t string into a new str_t string.
+ *
+ * @param   orig: the original str_t string
+ *
+ * @return  a new str_t instance with the same data as `str`
+ */
+inline str_t
+str_clone (const str_t *orig)
+{
+    return str_new_from_len (orig->str, orig->len);
 }
 
 /**
@@ -168,7 +191,8 @@ str_starts_with (const str_t *str, const char *find)
  *
  * @param   str: the str_t string to search in
  * @param   find: the cstring to search for
- * @param   len: the length of `find`
+ * @param   len: the length of `find`. undefined behaviour occurs if `len !=
+ *               strlen (src)`
  *
  * @return  true if `str` starts with `find`, else false
  */
@@ -197,7 +221,8 @@ str_ends_with (const str_t *str, const char *find)
  *
  * @param   str: the str_t string to search in
  * @param   find: the cstring to search for
- * @param   len: the length of `find`
+ * @param   len: the length of `find`. undefined behaviour occurs if `len !=
+ *               strlen (src)`
  *
  * @return  true if `str` ends with `find`, else false
  */
@@ -279,18 +304,6 @@ inline void
 str_upcase (str_t *str)
 {
     strupcase (str->str);
-}
-
-/**
- * clone the contents of a str_t string into a new str_t string.
- *
- * @param   str: the original str_t string
- * @param   new: the new str_t string. `new` has to be caller-allocated.
- */
-inline void
-str_clone (const str_t *str, str_t *new)
-{
-    str_new_from_len (new, str->str, str->len);
 }
 
 /**
