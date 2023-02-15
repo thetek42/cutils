@@ -84,6 +84,14 @@ test_str (void)
     test_add (&group, test_assert (str.cap = next_pow_of_two (2 * strlen (s))), "str_append .cap");
     str_free (&str);
 
+    str_new_from (&str, s);
+    test_add (&group, test_assert (str_eq (&str, s)), "str_eq true");
+    test_add (&group, test_assert (!str_eq (&str, "foo")), "str_eq false");
+    test_add (&group, test_assert (str_cmp (&str, "A") > 0), "str_eq greater");
+    test_add (&group, test_assert (str_cmp (&str, s) == 0), "str_eq equal");
+    test_add (&group, test_assert (str_cmp (&str, "Z") < 0), "str_eq less");
+    str_free (&str);
+
     return test_group_get_results (&group);
 }
 

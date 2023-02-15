@@ -121,3 +121,32 @@ str_append_len (str_t *str, const char *src, size_t len)
     str->len += len;
     str->str[str->len] = '\0';
 }
+
+/**
+ * compare a str_t string with a cstring.
+ *
+ * @param   str: the str_t string to compare
+ * @param   s2: the cstring to compare
+ *
+ * @return  integer less than, equal to, or greater than zero if str is found
+ *          to be less than, to match, or to be greater than s2
+ */
+int
+str_cmp (const str_t *str, const char *s2)
+{
+    return strcmp (str->str, s2);
+}
+
+/**
+ * check if a str_t string equals a cstring.
+ *
+ * @param   str: the str_t string to compare
+ * @param   s2: the cstring to compare
+ *
+ * @return  true if str equals s2, else false
+ */
+inline bool
+str_eq (const str_t *str, const char *s2)
+{
+    return str_cmp (str, s2) == 0;
+}
