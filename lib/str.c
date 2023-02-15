@@ -208,3 +208,38 @@ str_ends_with_len (const str_t *str, const char *find, size_t len)
 {
     return strcmp (str->str + str->len - len, find) == 0;
 }
+
+/**
+ * find a substring in a str_t string. a pointer to the beginning of the
+ * substring is returned.
+ *
+ * @param   str: the str_t string to search in
+ * @param   find: the cstring to search for
+ *
+ * @return  beginning of found substring as pointer, or NULL if not found
+ */
+inline char *
+str_find (const str_t *str, const char *find)
+{
+    return strstr (str->str, find);
+}
+
+/**
+ * find a substring in a str_t string. the starting index of the substring is
+ * returned.
+ *
+ * @param   str: the str_t string to search in
+ * @param   find: the cstring to search for
+ *
+ * @return  beginning of found substring as string index, or -1 if not found
+ */
+ssize_t
+str_pos (const str_t *str, const char *find)
+{
+    char *pos;
+
+    pos = str_find (str, find);
+    if (pos)
+        return pos - str->str;
+    return -1;
+}

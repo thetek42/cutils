@@ -95,6 +95,11 @@ test_str (void)
     test_add (&group, test_assert (!str_starts_with (&str, "foo")), "str_starts_with false");
     test_add (&group, test_assert (str_ends_with (&str, "elit.")), "str_ends_with true");
     test_add (&group, test_assert (!str_ends_with (&str, "bar")), "str_ends_with false");
+
+    test_add (&group, test_assert (str_find (&str, "ipsum") == str.str + 6), "str_find success");
+    test_add (&group, test_assert (str_find (&str, "foo") == NULL), "str_find failure");
+    test_add (&group, test_assert (str_pos (&str, "ipsum") == 6), "str_pos success");
+    test_add (&group, test_assert (str_pos (&str, "foo") == -1), "str_pos failure");
     str_free (&str);
 
     return test_group_get_results (&group);

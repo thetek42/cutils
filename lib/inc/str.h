@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <sys/types.h>
 
 /* represents a string, where length and capacity are stored alongside the string data. */
 typedef struct
@@ -25,5 +26,7 @@ bool str_starts_with (const str_t *str, const char *find); /* check if a str_t s
 bool str_starts_with_len (const str_t *str, const char *find, size_t len); /* check if a str_t string starts with a cstring of given length. */
 bool str_ends_with (const str_t *str, const char *find); /* check if a str_t string ends with a cstring. */
 bool str_ends_with_len (const str_t *str, const char *find, size_t len); /* check if a str_t string ends with a cstring of given length. */
+char *str_find (const str_t *str, const char *find); /* find a substring in a str_t string as a pointer. */
+ssize_t str_pos (const str_t *str, const char *find); /* find the index of a substring in a str_t string. */
 
 #endif // CUTILS_STR_H_
