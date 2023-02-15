@@ -10,7 +10,8 @@
 /**
  * initialize a str_t string and allocte some memory for the data
  *
- * @param   str: a pointer to the string to initialize
+ * @param   str: a pointer to the string to initialize. `str` has to be
+ *               caller-allocated.
  */
 void
 str_new (str_t *str)
@@ -25,7 +26,8 @@ str_new (str_t *str)
  * initialize a str_t string with a given capacity (allocation size). can be
  * used in oder to reduce the amount of calls to realloc.
  *
- * @param   str: a pointer to the string to initialize
+ * @param   str: a pointer to the string to initialize. `str` has to be
+ *               caller-allocated.
  */
 void
 str_new_cap (str_t *str, size_t want_cap)
@@ -43,7 +45,8 @@ str_new_cap (str_t *str, size_t want_cap)
  * initialize a str_t string with a given data. the data will be copied into
  * the string.
  *
- * @param   str: a pointer to the string to initialize
+ * @param   str: a pointer to the string to initialize. `str` has to be
+ *               caller-allocated.
  * @param   src: the data to put into the string
  */
 inline void
@@ -56,7 +59,8 @@ str_new_from (str_t *str, const char *src)
  * initialize a str_t string with a given data. the data will be copied into
  * the string. the length of the data is provided as a parameter.
  *
- * @param   str: a pointer to the string to initialize
+ * @param   str: a pointer to the string to initialize. `str` has to be
+ *               caller-allocated.
  * @param   src: the data to put into the string
  * @param   len: the length of `src`. undefined behaviour occurs if `len !=
  *               strlen (src)`
@@ -282,4 +286,16 @@ inline void
 str_upcase (str_t *str)
 {
     strupcase (str->str);
+}
+
+/**
+ * clone the contents of a str_t string into a new str_t string.
+ *
+ * @param   str: the original str_t string
+ * @param   new: the new str_t string. `new` has to be caller-allocated.
+ */
+inline void
+str_clone (const str_t *str, str_t *new)
+{
+    str_new_from_len (new, str->str, str->len);
 }

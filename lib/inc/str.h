@@ -31,5 +31,6 @@ ssize_t str_pos (const str_t *str, const char *find); /* find the index of a sub
 bool str_is_blank (const str_t *str); /* check if a string only consists of whitespace characters. */
 void str_downcase (str_t *str); /* transform all uppercase characters in a str_t string to lowercase */
 void str_upcase (str_t *str); /* transform all lowercase characters in a str_t string to uppercase */
+void str_clone (const str_t *str, str_t *new); /* clone the contents of a str_t string into a new str_t string. */
 
 #endif // CUTILS_STR_H_
