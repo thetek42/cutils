@@ -90,6 +90,11 @@ test_str (void)
     test_add (&group, test_assert (str_cmp (&str, "A") > 0), "str_eq greater");
     test_add (&group, test_assert (str_cmp (&str, s) == 0), "str_eq equal");
     test_add (&group, test_assert (str_cmp (&str, "Z") < 0), "str_eq less");
+
+    test_add (&group, test_assert (str_starts_with (&str, "Lorem")), "str_starts_with true");
+    test_add (&group, test_assert (!str_starts_with (&str, "foo")), "str_starts_with false");
+    test_add (&group, test_assert (str_ends_with (&str, "elit.")), "str_ends_with true");
+    test_add (&group, test_assert (!str_ends_with (&str, "bar")), "str_ends_with false");
     str_free (&str);
 
     return test_group_get_results (&group);

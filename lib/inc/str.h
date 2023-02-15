@@ -21,5 +21,9 @@ void str_append (str_t *str, const char *src); /* append a string to the end of 
 void str_append_len (str_t *str, const char *src, size_t len); /* append a string to the end of a str_t string with a given length. */
 int str_cmp (const str_t *str, const char *s2); /* compare a str_t string with a cstring. */
 bool str_eq (const str_t *str, const char *s2); /* check if a str_t string equals a cstring. */
+bool str_starts_with (const str_t *str, const char *find); /* check if a str_t string starts with a cstring. */
+bool str_starts_with_len (const str_t *str, const char *find, size_t len); /* check if a str_t string starts with a cstring of given length. */
+bool str_ends_with (const str_t *str, const char *find); /* check if a str_t string ends with a cstring. */
+bool str_ends_with_len (const str_t *str, const char *find, size_t len); /* check if a str_t string ends with a cstring of given length. */
 
 #endif // CUTILS_STR_H_

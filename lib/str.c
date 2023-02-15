@@ -131,7 +131,7 @@ str_append_len (str_t *str, const char *src, size_t len)
  * @return  integer less than, equal to, or greater than zero if str is found
  *          to be less than, to match, or to be greater than s2
  */
-int
+inline int
 str_cmp (const str_t *str, const char *s2)
 {
     return strcmp (str->str, s2);
@@ -149,4 +149,62 @@ inline bool
 str_eq (const str_t *str, const char *s2)
 {
     return str_cmp (str, s2) == 0;
+}
+
+/**
+ * check if a str_t string starts with a cstring.
+ *
+ * @param   str: the str_t string to search in
+ * @param   find: the cstring to search for
+ *
+ * @return  true if `str` starts with `find`, else false
+ */
+inline bool
+str_starts_with (const str_t *str, const char *find)
+{
+    return str_starts_with_len (str, find, strlen (find));
+}
+
+/**
+ * check if a str_t string starts with a cstring of given length.
+ *
+ * @param   str: the str_t string to search in
+ * @param   find: the cstring to search for
+ * @param   len: the length of `find`
+ *
+ * @return  true if `str` starts with `find`, else false
+ */
+inline bool
+str_starts_with_len (const str_t *str, const char *find, size_t len)
+{
+    return strncmp (str->str, find, len) == 0;
+}
+
+/**
+ * check if a str_t string ends with a cstring.
+ *
+ * @param   str: the str_t string to search in
+ * @param   find: the cstring to search for
+ *
+ * @return  true if `str` ends with `find`, else false
+ */
+inline bool
+str_ends_with (const str_t *str, const char *find)
+{
+    return str_ends_with_len (str, find, strlen (find));
+}
+
+/**
+ * check if a str_t string ends with a cstring of given length.
+ *
+ * @param   str: the str_t string to search in
+ * @param   find: the cstring to search for
+ * @param   len: the length of `find`
+ *
+ * @return  true if `str` ends with `find`, else false
+ */
+inline bool
+str_ends_with_len (const str_t *str, const char *find, size_t len)
+{
+    return strcmp (str->str + str->len - len, find) == 0;
 }
