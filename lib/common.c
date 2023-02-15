@@ -34,3 +34,17 @@ srealloc (void *ptr, size_t size)
 
     return ptr;
 }
+
+/**
+ * create a random number within an interval
+ *
+ * @param   min: the lower bound (inclusive)
+ * @param   max: the upper bound (inclusive)
+ *
+ * @return  a pseudo-random number within the given bounds
+ */
+int
+rand_range (int min, int max)
+{
+    return (rand () % (max - min + 1)) + min;
+}
