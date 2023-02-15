@@ -12,15 +12,11 @@
  *
  * @return  a pointer to the beginning of the trimmed string. the string is not
  *          copied, and the returned pointer points to somewhere within the
- *          original string. returns null on error.
- *
- * @errno   EINVAL: `str` is a null pointer
+ *          original string.
  */
 char *
 strtrim (char *str)
 {
-    if (str == NULL) return errno = EINVAL, NULL;
-
     strtrimr (str);
     return strtriml (str);
 }
@@ -33,15 +29,11 @@ strtrim (char *str)
  *
  * @return  a pointer to the beginning of the trimmed string. the string is not
  *          copied, and the returned pointer points to somewhere within the
- *          original string. returns null on error.
- *
- * @errno   EINVAL: `str` is a null pointer
+ *          original string.
  */
 char *
 strtriml (char *str)
 {
-    if (str == NULL) return errno = EINVAL, NULL;
-
     while (*str && isspace (*str))
         str++;
 
@@ -55,16 +47,12 @@ strtriml (char *str)
  *
  * @param   str: the string to trim
  *
- * @return  the new string length, or -1 on error.
- *
- * @errno   EINVAL: `str` is a null pointer
+ * @return  the new string length.
  */
-ssize_t
+size_t
 strtrimr (char *str)
 {
     size_t len, i;
-
-    if (str == NULL) return errno = EINVAL, -1;
 
     i = len = strlen (str);
     while (i <= len && isspace (str[i - 1]))
@@ -80,16 +68,12 @@ strtrimr (char *str)
  * @param   str: the string to search in
  * @param   c: the character to search for
  *
- * @return  the amount of occurances, or -1 on error.
- *
- * @errno   EINVAL: `str` is a null pointer
+ * @return  the amount of occurances of `c` in `str`
  */
-ssize_t
+size_t
 strcount (const char *str, char c)
 {
     size_t count;
-
-    if (str == NULL) return errno = EINVAL, -1;
 
     count = 0;
     while (*str)
@@ -103,62 +87,48 @@ strcount (const char *str, char c)
  * transform all uppercase letters of a string into lowercase letters.
  *
  * @param   str: the string to convert
- *
- * @errno   EINVAL: `str` is a null pointer
  */
 void
 strdowncase (char *str)
 {
-    if (str == NULL)
-        errno = EINVAL;
-    else
-        while (*str)
-        {
-            if (isupper (*str))
-                *str += 0x20;
-            str++;
-        }
+    while (*str)
+    {
+        if (isupper (*str))
+            *str += 0x20;
+        str++;
+    }
 }
 
 /**
  * transform all lowercase letters of a string into uppercase letters.
  *
  * @param   str: the string to convert
- *
- * @errno   EINVAL: `str` is a null pointer
  */
 void
 strupcase (char *str)
 {
-    if (str == NULL)
-        errno = EINVAL;
-    else
-        while (*str)
-        {
-            if (islower (*str))
-                *str -= 0x20;
-            str++;
-        }
+    while (*str)
+    {
+        if (islower (*str))
+            *str -= 0x20;
+        str++;
+    }
 }
 
 /**
- * check if a string only consists of whitespace characters.
+ * check if a string only consists of whitespace characters. whitespaces
+ * include the following characters: ' ', '\n', '\r', '\t', '\v', '\f'.
  *
  * @param   str: the string to check
  *
  * @return  true if the string only consists of whitespace characters, or false
- *          if other characters are present. false in case of error.
- *
- * @errno   EINVAL: `str` is a null pointer
+ *          if other characters are present.
  */
 bool
 strisblank (const char *str)
 {
-    if (str == NULL) return errno = EINVAL, false;
-
     while (*str)
         if (!isspace (*str++))
             return false;
-
     return true;
 }
