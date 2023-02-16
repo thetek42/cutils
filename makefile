@@ -20,7 +20,7 @@ test: $(TARGET)
 .PHONY: all clean test
 
 
-$(TARGET): $(OBJFILES) mkdir
+$(TARGET): mkdir $(OBJFILES)
 	$(CC) $(CFLAGS) $(OBJFILES) -o $(TARGET)
 
 obj/%.o: %.c
