@@ -1,0 +1,5 @@
+gcc
+-Wall
+-Wextra
+-Werror=implicit
+-Ilib/inc
