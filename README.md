@@ -18,5 +18,6 @@ parameters and return values).
 - `str`: A custom string type that stores length and capacity and associated
   functions for interacting with it
 - `test`: Simple unit testing library
+- `vec`: Vectorized math operations
 
 Note that some modules may depend on each other.
