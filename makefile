@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror=implicit -Og -g -Ilib/inc
+CFLAGS := -Wall -Wextra -Werror=implicit -pedantic -Og -g -Ilib/inc
 
 SRCFILES := $(wildcard lib/*.c)
 SRCFILES += $(wildcard test/*.c)
