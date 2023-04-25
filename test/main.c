@@ -15,7 +15,7 @@ test_results_t
 test_cstr (void)
 {
     test_group_t group;
-    size_t len;
+    usize len;
 
     group = test_group_new ();
 
@@ -62,7 +62,7 @@ test_str (void)
     group = test_group_new ();
 
     str = str_new ();
-    test_add (&group, test_assert (str.str != NULL && str.cap > 0), "str_new");
+    test_add (&group, test_assert (str.str != nullptr && str.cap > 0), "str_new");
     str_free (&str);
 
     str = str_new_cap (1000);
@@ -97,7 +97,7 @@ test_str (void)
     test_add (&group, test_assert (!str_ends_with (&str, "bar")), "str_ends_with false");
 
     test_add (&group, test_assert (str_find (&str, "ipsum") == str.str + 6), "str_find success");
-    test_add (&group, test_assert (str_find (&str, "foo") == NULL), "str_find failure");
+    test_add (&group, test_assert (str_find (&str, "foo") == nullptr), "str_find failure");
     test_add (&group, test_assert (str_pos (&str, "ipsum") == 6), "str_pos success");
     test_add (&group, test_assert (str_pos (&str, "foo") == -1), "str_pos failure");
     str_free (&str);
