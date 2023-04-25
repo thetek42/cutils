@@ -28,6 +28,11 @@ smalloc (size_t size)
 void *
 srealloc (void *ptr, size_t size)
 {
+#if __STDC_VERSION__ >= 202000L // C23 or above
+    if (ptr == NULL)
+        return smalloc (size);
+#endif
+
     ptr = realloc (ptr, size);
     if (!ptr)
         log_fatal ("failed to allocate %zu bytes of memory\n", size);
