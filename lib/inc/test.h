@@ -8,8 +8,7 @@
 #define test_assert(a) ((bool) (a)), (#a) /* provides the `success` and `assertion` parameters for `test_add()` / `test_group_add()` */
 
 /* results of a test group or suite */
-typedef struct
-{
+typedef struct {
     size_t success; /* number of successful tests */
     size_t failure; /* number of failed tests */
 } test_results_t;
@@ -18,16 +17,14 @@ typedef struct
 typedef test_results_t (*test_entry_func_t) (void);
 
 /* test suite. a suite contains multiple test groups. */
-typedef struct
-{
+typedef struct {
     test_entry_func_t *entries; /* test groups as executable function pointers */
     size_t entries_len; /* number of functions */
     size_t entries_cap; /* allocated space for functions */
 } test_suite_t;
 
 /* test group. contains multiple tests. */
-typedef struct
-{
+typedef struct {
     test_results_t results;
 } test_group_t;
 

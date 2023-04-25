@@ -6,23 +6,27 @@
 static void
 _log_print_type (log_level_t type)
 {
-    switch (type)
-    {
-        case LOG_LEVEL_ERROR:
+    switch (type) {
+        case LOG_LEVEL_ERROR: {
             printf ("[\x1b[31merror\x1b[0m] ");
             break;
-        case LOG_LEVEL_WARNING:
+        }
+        case LOG_LEVEL_WARNING: {
             printf ("[\x1b[33mwarn\x1b[0m] ");
             break;
-        case LOG_LEVEL_INFO:
+        }
+        case LOG_LEVEL_INFO: {
             printf ("[\x1b[34minfo\x1b[0m] ");
             break;
-        case LOG_LEVEL_OK:
+        }
+        case LOG_LEVEL_OK: {
             printf ("[\x1b[32mok\x1b[0m] ");
             break;
-        case LOG_LEVEL_DEBUG:
+        }
+        case LOG_LEVEL_DEBUG: {
             printf ("[\x1b[35mdebug\x1b[0m] ");
             break;
+        }
     }
 }
 
@@ -65,7 +69,8 @@ log_print (log_level_t type, const char *restrict fmt, ...)
  */
 __attribute__ ((format (printf, 4, 5)))
 void
-log_print_fl (log_level_t type, const char *file, size_t line, const char *restrict fmt, ...)
+log_print_fl (log_level_t type, const char *file, size_t line,
+              const char *restrict fmt, ...)
 {
     va_list ap;
 

@@ -17,8 +17,7 @@
 #define log_fatal(...) do { log_print (LOG_LEVEL_ERROR, __VA_ARGS__); exit (EXIT_FAILURE); } while (0) /* print a log message with level error and exit */
 #define log_fatal_fl(...) do { log_print_fl (LOG_LEVEL_ERROR, __FILE__, __LINE__, __VA_ARGS__) exit (EXIT_FAILURE); } while (0) /* print a log message with the current file and line and log level error and exit */
 
-typedef enum
-{
+typedef enum {
     LOG_LEVEL_ERROR,
     LOG_LEVEL_WARNING,
     LOG_LEVEL_INFO,

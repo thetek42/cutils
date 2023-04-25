@@ -45,10 +45,10 @@ test_suite_free (test_suite_t suite[static 1])
 void
 test_suite_add (test_suite_t suite[static 1], test_entry_func_t func)
 {
-    if (suite->entries_len == suite->entries_cap - 1)
-    {
+    if (suite->entries_len == suite->entries_cap - 1) {
         suite->entries_cap += TEST_GROUP_ENTRIES_ALLOC;
-        suite->entries = realloc (suite->entries, (sizeof *(suite->entries)) * suite->entries_cap);
+        suite->entries = realloc (suite->entries, (sizeof *(suite->entries)) *
+                                  suite->entries_cap);
     }
     suite->entries[suite->entries_len] = func;
     suite->entries_len += 1;
@@ -71,17 +71,25 @@ test_suite_run (test_suite_t suite[static 1])
 
     total_result = (test_results_t) {0};
 
-    for (i = 0; i < suite->entries_len; i++)
-    {
+    for (i = 0; i < suite->entries_len; i++) {
         result = suite->entries[i]();
         total_result.success += result.success;
         total_result.failure += result.failure;
     }
 
-    if (total_result.failure == 0)
-        log_ok ("all tests successful (%zu tests in %zu groups)\n", total_result.success, suite->entries_len);
-    else
-        log_error ("tests unsuccessful (%zu tests in %zu groups, out of which %zu successful and %zu failures)\n", total_result.success + total_result.failure, suite->entries_len, total_result.success, total_result.failure);
+    if (total_result.failure == 0) {
+        log_ok (
+            "all tests successful (%zu tests in %zu groups)\n",
+            total_result.success, suite->entries_len
+        );
+    } else {
+        log_error (
+            "tests unsuccessful (%zu tests in %zu groups, out of which %zu "
+            "successful and %zu failures)\n",
+            total_result.success + total_result.failure,
+            suite->entries_len, total_result.success, total_result.failure
+        );
+    }
 
     return total_result;
 }
@@ -113,14 +121,16 @@ test_group_new (void)
  *          `assertion` parameters.
  */
 void
-test_group_add (test_group_t group[static 1], bool success, const char *assertion, const char *name, const char *file, size_t line)
+test_group_add (test_group_t group[static 1], bool success,
+                const char *assertion, const char *name, const char *file,
+                size_t line)
 {
-    if (success)
+    if (success) {
         group->results.success += 1;
-    else
-    {
+    } else {
         group->results.failure += 1;
-        log_print_fl (LOG_LEVEL_ERROR, file, line, "test '%s' (assertion '%s') failed\n", name, assertion);
+        log_print_fl (LOG_LEVEL_ERROR, file, line,
+                      "test '%s' (assertion '%s') failed\n", name, assertion);
     }
 }
 

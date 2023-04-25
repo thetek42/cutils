@@ -91,8 +91,7 @@ strcount (const char str[static 1], char c)
 void
 strdowncase (char str[static 1])
 {
-    while (*str)
-    {
+    while (*str) {
         if (isupper (*str))
             *str += 0x20;
         str++;
@@ -107,8 +106,7 @@ strdowncase (char str[static 1])
 void
 strupcase (char str[static 1])
 {
-    while (*str)
-    {
+    while (*str) {
         if (islower (*str))
             *str -= 0x20;
         str++;

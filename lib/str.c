@@ -318,8 +318,7 @@ void
 str_resize (str_t str[static 1], size_t cap)
 {
     cap = max (next_pow_of_two (cap), STR_MIN_ALLOC);
-    if (cap > str->len && cap != str->cap)
-    {
+    if (cap > str->len && cap != str->cap) {
         str->str = srealloc (str->str, cap * sizeof (char));
         str->cap = cap;
     }

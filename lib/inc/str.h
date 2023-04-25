@@ -6,8 +6,7 @@
 #include <sys/types.h>
 
 /* represents a string, where length and capacity are stored alongside the string data. */
-typedef struct
-{
+typedef struct {
     char *str; /* string data */
     size_t len; /* string length */
     size_t cap; /* capacity (allocated size) */
