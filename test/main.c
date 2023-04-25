@@ -10,6 +10,7 @@
 #include "common.h"
 #include "str.h"
 #include "test.h"
+#include "vec.h"
 
 test_results_t
 test_cstr (void)
@@ -105,6 +106,41 @@ test_str (void)
     return test_group_get_results (&group);
 }
 
+test_results_t
+test_vec (void)
+{
+    test_group_t group;
+    i32 a[42], b[42], a_orig[42];
+    bool all_correct;
+    usize i;
+
+    group = test_group_new ();
+
+    for (i = 0; i < 42; i++) {
+        a[i] = a_orig[i] = (i32) rand_range (0, INT16_MAX);
+        b[i] = (i32) rand_range (0, INT16_MAX);
+    }
+
+    vec_add (42, a, b);
+
+    all_correct = true;
+    for (i = 0; i < 42; i++)
+        all_correct &= (a[i] == a_orig[i] + b[i]);
+    test_add (&group, test_assert (all_correct && "for all i: a[i] = a_orig[i] + b[i]"), "vec_add");
+
+    for (i = 0; i < 42; i++)
+        a[i] = a_orig[i];
+
+    vec_sub(42, a, b);
+
+    all_correct = true;
+    for (i = 0; i < 42; i++)
+        all_correct &= (a[i] == a_orig[i] - b[i]);
+    test_add (&group, test_assert (all_correct && "for all i: a[i] = a_orig[i] - b[i]"), "vec_sub");
+
+    return test_group_get_results (&group);
+}
+
 int
 main (void)
 {
@@ -113,6 +149,7 @@ main (void)
     suite = test_suite_new ();
     test_suite_add (&suite, test_cstr);
     test_suite_add (&suite, test_str);
+    test_suite_add (&suite, test_vec);
     test_suite_run (&suite);
     test_suite_free (&suite);
 
