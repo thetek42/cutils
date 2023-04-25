@@ -110,7 +110,7 @@ test_results_t
 test_vec (void)
 {
     test_group_t group;
-    i32 a[42], b[42], a_orig[42];
+    i32 a[42], b[42], c[42], a_orig[42];
     bool all_correct;
     usize i;
 
@@ -119,6 +119,7 @@ test_vec (void)
     for (i = 0; i < 42; i++) {
         a[i] = a_orig[i] = (i32) rand_range (0, INT16_MAX);
         b[i] = (i32) rand_range (0, INT16_MAX);
+        c[i] = (i32) rand_range (0, INT16_MAX);
     }
 
     vec_add (42, a, b);
@@ -131,12 +132,22 @@ test_vec (void)
     for (i = 0; i < 42; i++)
         a[i] = a_orig[i];
 
-    vec_sub(42, a, b);
+    vec_sub (42, a, b);
 
     all_correct = true;
     for (i = 0; i < 42; i++)
         all_correct &= (a[i] == a_orig[i] - b[i]);
     test_add (&group, test_assert (all_correct && "for all i: a[i] = a_orig[i] - b[i]"), "vec_sub");
+
+    for (i = 0; i < 42; i++)
+        a[i] = a_orig[i];
+
+    vec_fma (42, a, b, c);
+
+    all_correct = true;
+    for (i = 0; i < 42; i++)
+        all_correct &= (a[i] == a_orig[i] * b[i] + c[i]);
+    test_add (&group, test_assert (all_correct && "for all i: a[i] = a_orig[i] * b[i] + c[i]"), "vec_fma");
 
     return test_group_get_results (&group);
 }
