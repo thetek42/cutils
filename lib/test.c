@@ -31,7 +31,7 @@ test_suite_new (void)
  * @param   suite: a pointer to the suite to free up
  */
 void
-test_suite_free (test_suite_t *suite)
+test_suite_free (test_suite_t suite[static 1])
 {
     free (suite->entries);
 }
@@ -43,7 +43,7 @@ test_suite_free (test_suite_t *suite)
  * @param   func: the test group function
  */
 void
-test_suite_add (test_suite_t *suite, test_entry_func_t func)
+test_suite_add (test_suite_t suite[static 1], test_entry_func_t func)
 {
     if (suite->entries_len == suite->entries_cap - 1)
     {
@@ -64,7 +64,7 @@ test_suite_add (test_suite_t *suite, test_entry_func_t func)
  * @return  test results (number of successful and failed tests)
  */
 test_results_t
-test_suite_run (test_suite_t *suite)
+test_suite_run (test_suite_t suite[static 1])
 {
     test_results_t total_result, result;
     size_t i;
@@ -113,7 +113,7 @@ test_group_new (void)
  *          `assertion` parameters.
  */
 void
-test_group_add (test_group_t *group, bool success, const char *assertion, const char *name, const char *file, size_t line)
+test_group_add (test_group_t group[static 1], bool success, const char *assertion, const char *name, const char *file, size_t line)
 {
     if (success)
         group->results.success += 1;
@@ -131,7 +131,7 @@ test_group_add (test_group_t *group, bool success, const char *assertion, const 
  * @param   group: the group to query
  */
 test_results_t
-test_group_get_results (test_group_t *group)
+test_group_get_results (test_group_t group[static 1])
 {
     return group->results;
 }

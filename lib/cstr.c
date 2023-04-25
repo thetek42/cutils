@@ -15,7 +15,7 @@
  *          original string.
  */
 char *
-strtrim (char *str)
+strtrim (char str[static 1])
 {
     strtrimr (str);
     return strtriml (str);
@@ -32,7 +32,7 @@ strtrim (char *str)
  *          original string.
  */
 char *
-strtriml (char *str)
+strtriml (char str[static 1])
 {
     while (*str && isspace (*str))
         str++;
@@ -50,7 +50,7 @@ strtriml (char *str)
  * @return  the new string length.
  */
 size_t
-strtrimr (char *str)
+strtrimr (char str[static 1])
 {
     size_t len, i;
 
@@ -71,7 +71,7 @@ strtrimr (char *str)
  * @return  the amount of occurances of `c` in `str`
  */
 size_t
-strcount (const char *str, char c)
+strcount (const char str[static 1], char c)
 {
     size_t count;
 
@@ -89,7 +89,7 @@ strcount (const char *str, char c)
  * @param   str: the string to convert
  */
 void
-strdowncase (char *str)
+strdowncase (char str[static 1])
 {
     while (*str)
     {
@@ -105,7 +105,7 @@ strdowncase (char *str)
  * @param   str: the string to convert
  */
 void
-strupcase (char *str)
+strupcase (char str[static 1])
 {
     while (*str)
     {
@@ -125,7 +125,7 @@ strupcase (char *str)
  *          if other characters are present.
  */
 bool
-strisblank (const char *str)
+strisblank (const char str[static 1])
 {
     while (*str)
         if (!isspace (*str++))

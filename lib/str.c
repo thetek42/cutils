@@ -13,7 +13,7 @@
  * @return  a new, empty str_t instance
  */
 str_t
-str_new ()
+str_new (void)
 {
     str_t str;
 
@@ -57,9 +57,9 @@ str_new_cap (size_t want_cap)
  * @return  a new, empty str_t with given data.
  */
 inline str_t
-str_new_from (const char *src)
+str_new_from (const char src[static 1])
 {
-    return str_new_from_len (src, strlen (src));
+    return str_new_from_len (strlen (src), src);
 }
 
 /**
@@ -73,7 +73,7 @@ str_new_from (const char *src)
  * @return  a new, empty str_t with given data.
  */
 str_t
-str_new_from_len (const char *src, size_t len)
+str_new_from_len (size_t len, const char src[restrict len])
 {
     size_t cap;
     str_t str;
@@ -96,9 +96,9 @@ str_new_from_len (const char *src, size_t len)
  * @return  a new str_t instance with the same data as `str`
  */
 inline str_t
-str_clone (const str_t *orig)
+str_clone (const str_t orig[static 1])
 {
-    return str_new_from_len (orig->str, orig->len);
+    return str_new_from_len (orig->len, orig->str);
 }
 
 /**
@@ -120,9 +120,9 @@ str_free (str_t *str)
  * @param   src: the cstring to append
  */
 inline void
-str_append (str_t *str, const char *src)
+str_append (str_t str[static 1], const char src[static 1])
 {
-    str_append_len (str, src, strlen (src));
+    str_append_len (str, strlen (src), src);
 }
 
 /**
@@ -135,7 +135,7 @@ str_append (str_t *str, const char *src)
  *               strlen (src)`
  */
 void
-str_append_len (str_t *str, const char *src, size_t len)
+str_append_len (str_t str[static 1], size_t len, const char src[restrict len])
 {
     str_resize (str, str->len + len + 1);
     strncpy (str->str + str->len, src, len);
@@ -153,7 +153,7 @@ str_append_len (str_t *str, const char *src, size_t len)
  *          to be less than, to match, or to be greater than s2
  */
 inline int
-str_cmp (const str_t *str, const char *s2)
+str_cmp (const str_t str[static 1], const char *s2)
 {
     return strcmp (str->str, s2);
 }
@@ -167,7 +167,7 @@ str_cmp (const str_t *str, const char *s2)
  * @return  true if str equals s2, else false
  */
 inline bool
-str_eq (const str_t *str, const char *s2)
+str_eq (const str_t str[static 1], const char *s2)
 {
     return str_cmp (str, s2) == 0;
 }
@@ -181,9 +181,9 @@ str_eq (const str_t *str, const char *s2)
  * @return  true if `str` starts with `find`, else false
  */
 inline bool
-str_starts_with (const str_t *str, const char *find)
+str_starts_with (const str_t str[static 1], const char find[static 1])
 {
-    return str_starts_with_len (str, find, strlen (find));
+    return str_starts_with_len (str, strlen (find), find);
 }
 
 /**
@@ -197,7 +197,8 @@ str_starts_with (const str_t *str, const char *find)
  * @return  true if `str` starts with `find`, else false
  */
 inline bool
-str_starts_with_len (const str_t *str, const char *find, size_t len)
+str_starts_with_len (const str_t str[static 1], size_t len,
+                     const char find[restrict len])
 {
     return strncmp (str->str, find, len) == 0;
 }
@@ -211,9 +212,9 @@ str_starts_with_len (const str_t *str, const char *find, size_t len)
  * @return  true if `str` ends with `find`, else false
  */
 inline bool
-str_ends_with (const str_t *str, const char *find)
+str_ends_with (const str_t str[static 1], const char find[static 1])
 {
-    return str_ends_with_len (str, find, strlen (find));
+    return str_ends_with_len (str, strlen (find), find);
 }
 
 /**
@@ -227,7 +228,8 @@ str_ends_with (const str_t *str, const char *find)
  * @return  true if `str` ends with `find`, else false
  */
 inline bool
-str_ends_with_len (const str_t *str, const char *find, size_t len)
+str_ends_with_len (const str_t str[static 1], size_t len,
+                   const char find[restrict len])
 {
     return strcmp (str->str + str->len - len, find) == 0;
 }
@@ -242,7 +244,7 @@ str_ends_with_len (const str_t *str, const char *find, size_t len)
  * @return  beginning of found substring as pointer, or NULL if not found
  */
 inline char *
-str_find (const str_t *str, const char *find)
+str_find (const str_t str[static 1], const char *find)
 {
     return strstr (str->str, find);
 }
@@ -257,7 +259,7 @@ str_find (const str_t *str, const char *find)
  * @return  beginning of found substring as string index, or -1 if not found
  */
 ssize_t
-str_pos (const str_t *str, const char *find)
+str_pos (const str_t str[static 1], const char *find)
 {
     char *pos;
 
@@ -277,7 +279,7 @@ str_pos (const str_t *str, const char *find)
  *          if other characters are present. false in case of error.
  */
 inline bool
-str_is_blank (const str_t *str)
+str_is_blank (const str_t str[static 1])
 {
     return strisblank (str->str);
 }
@@ -289,7 +291,7 @@ str_is_blank (const str_t *str)
  * @param   str: the string to modify
  */
 inline void
-str_downcase (str_t *str)
+str_downcase (str_t str[static 1])
 {
     strdowncase (str->str);
 }
@@ -301,7 +303,7 @@ str_downcase (str_t *str)
  * @param   str: the string to modify
  */
 inline void
-str_upcase (str_t *str)
+str_upcase (str_t str[static 1])
 {
     strupcase (str->str);
 }
@@ -313,7 +315,7 @@ str_upcase (str_t *str)
  * @param   cap: the minimum amount of capacity to resize to
  */
 void
-str_resize (str_t *str, size_t cap)
+str_resize (str_t str[static 1], size_t cap)
 {
     cap = max (next_pow_of_two (cap), STR_MIN_ALLOC);
     if (cap > str->len && cap != str->cap)

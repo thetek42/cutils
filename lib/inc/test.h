@@ -32,11 +32,11 @@ typedef struct
 } test_group_t;
 
 test_suite_t test_suite_new (void); /* create a new test suite */
-void test_suite_free (test_suite_t *suite); /* free dynamically allocated memory occupied by a test suite */
-void test_suite_add (test_suite_t *suite, test_entry_func_t func); /* add a test group function to a test suite */
-test_results_t test_suite_run (test_suite_t *suite); /* run the entries within a test suite and print an informational message */
+void test_suite_free (test_suite_t suite[static 1]); /* free dynamically allocated memory occupied by a test suite */
+void test_suite_add (test_suite_t suite[static 1], test_entry_func_t func); /* add a test group function to a test suite */
+test_results_t test_suite_run (test_suite_t suite[static 1]); /* run the entries within a test suite and print an informational message */
 test_group_t test_group_new (void); /* create a new test group */
-void test_group_add (test_group_t *group, bool success, const char *assertion, const char *name, const char *file, size_t line); /* add a test to a test group, print an error message if the test failed */
-test_results_t test_group_get_results (test_group_t *group); /* get results of a test group. used for returning the status from a test group */
+void test_group_add (test_group_t group[static 1], bool success, const char *assertion, const char *name, const char *file, size_t line); /* add a test to a test group, print an error message if the test failed */
+test_results_t test_group_get_results (test_group_t group[static 1]); /* get results of a test group. used for returning the status from a test group */
 
 #endif // CUTILS_TEST_H_

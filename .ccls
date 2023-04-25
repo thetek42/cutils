@@ -2,4 +2,5 @@ gcc
 -Wall
 -Wextra
 -Werror=implicit
+-pedantic
 -Ilib/inc
