@@ -240,7 +240,7 @@ str_ends_with_len (const str_t str[static 1], usize len,
  * @param   str: the str_t string to search in
  * @param   find: the cstring to search for
  *
- * @return  beginning of found substring as pointer, or NULL if not found
+ * @return  beginning of found substring as pointer, or nullptr if not found
  */
 inline char *
 str_find (const str_t str[static 1], const char *find)

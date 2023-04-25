@@ -18,7 +18,7 @@ test_suite_new (void)
 
     suite = (test_suite_t) {0};
     suite.entries = smalloc ((sizeof *(suite.entries)) * TEST_GROUP_ENTRIES_ALLOC);
-    suite.entries[0] = NULL;
+    suite.entries[0] = nullptr;
     suite.entries_cap = TEST_GROUP_ENTRIES_ALLOC;
 
     return suite;
@@ -51,7 +51,7 @@ test_suite_add (test_suite_t suite[static 1], test_entry_func_t func)
     }
     suite->entries[suite->entries_len] = func;
     suite->entries_len += 1;
-    suite->entries[suite->entries_len] = NULL;
+    suite->entries[suite->entries_len] = nullptr;
 }
 
 /**

@@ -11,7 +11,7 @@
  * @param   file: the file in which malloc() was called
  * @param   line: the source code line where malloc() was called
  *
- * @return  the pointer to the allocated memory, or NULL in case of error
+ * @return  the pointer to the allocated memory, or nullptr in case of error
  *
  * @errno   see malloc(3)
  *
@@ -47,7 +47,7 @@ debug_malloc (usize size, const char *file, usize line)
  * @param   file: the file in which realloc() was called
  * @param   line: the source code line where realloc() was called
  *
- * @return  the pointer to the reallocated memory, or NULL in case of error
+ * @return  the pointer to the reallocated memory, or nullptr in case of error
  *
  * @errno   see realloc(3)
  *
@@ -109,7 +109,7 @@ debug_free (void *ptr, const char *file, usize line)
  * @param   file: the file in which malloc() was called
  * @param   line: the source code line where malloc() was called
  *
- * @return  the pointer to the allocated memory, or NULL in case of error
+ * @return  the pointer to the allocated memory, or nullptr in case of error
  *
  * @usage   the header `debug.h` defines a macro `smalloc(size)` that
  *          automatically inserts filename and line.
@@ -135,7 +135,7 @@ debug_smalloc (usize size, const char *file, usize line)
  * @param   file: the file in which realloc() was called
  * @param   line: the source code line where realloc() was called
  *
- * @return  the pointer to the reallocated memory, or NULL in case of error
+ * @return  the pointer to the reallocated memory, or nullptr in case of error
  *
  * @usage   the header `debug.h` defines a macro `srealloc(ptr, size)` that
  *          automatically inserts filename and line.

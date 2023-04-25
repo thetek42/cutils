@@ -29,7 +29,7 @@ void *
 srealloc (void *ptr, usize size)
 {
 #if __STDC_VERSION__ >= 202000L // C23 or above
-    if (ptr == NULL)
+    if (ptr == nullptr)
         return smalloc (size);
 #endif
 
