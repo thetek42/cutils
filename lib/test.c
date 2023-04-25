@@ -1,7 +1,6 @@
 #include "test.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "common.h"
 #include "log.h"
 
 #define TEST_GROUP_ENTRIES_ALLOC 16
@@ -67,7 +66,7 @@ test_results_t
 test_suite_run (test_suite_t suite[static 1])
 {
     test_results_t total_result, result;
-    size_t i;
+    usize i;
 
     total_result = (test_results_t) {0};
 
@@ -123,7 +122,7 @@ test_group_new (void)
 void
 test_group_add (test_group_t group[static 1], bool success,
                 const char *assertion, const char *name, const char *file,
-                size_t line)
+                usize line)
 {
     if (success) {
         group->results.success += 1;

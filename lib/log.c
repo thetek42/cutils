@@ -69,7 +69,7 @@ log_print (log_level_t type, const char *restrict fmt, ...)
  */
 __attribute__ ((format (printf, 4, 5)))
 void
-log_print_fl (log_level_t type, const char *file, size_t line,
+log_print_fl (log_level_t type, const char *file, usize line,
               const char *restrict fmt, ...)
 {
     va_list ap;

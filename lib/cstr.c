@@ -49,10 +49,10 @@ strtriml (char str[static 1])
  *
  * @return  the new string length.
  */
-size_t
+usize
 strtrimr (char str[static 1])
 {
-    size_t len, i;
+    usize len, i;
 
     i = len = strlen (str);
     while (i <= len && isspace (str[i - 1]))
@@ -70,10 +70,10 @@ strtrimr (char str[static 1])
  *
  * @return  the amount of occurances of `c` in `str`
  */
-size_t
+usize
 strcount (const char str[static 1], char c)
 {
-    size_t count;
+    usize count;
 
     count = 0;
     while (*str)

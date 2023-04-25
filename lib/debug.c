@@ -19,12 +19,12 @@
  *          automatically inserts filename and line.
  */
 void *
-debug_malloc (size_t size, const char *file, size_t line)
+debug_malloc (usize size, const char *file, usize line)
 {
     void *ptr;
 
     ptr = malloc (size);
-    if (ptr == NULL) {
+    if (ptr == nullptr) {
         log_print_fl (
             LOG_LEVEL_DEBUG, file, line,
             "malloc of size %zu \x1b[31mreturned null\x1b[0m\n", size
@@ -55,14 +55,14 @@ debug_malloc (size_t size, const char *file, size_t line)
  *          automatically inserts filename and line.
  */
 void *
-debug_realloc (void *ptr, size_t size, const char *file, size_t line)
+debug_realloc (void *ptr, usize size, const char *file, usize line)
 {
     void *new_ptr;
     uintptr_t old_ptr;
 
     old_ptr = (uintptr_t) ptr;
     new_ptr = realloc (ptr, size);
-    if (new_ptr == NULL && size != 0) {
+    if (new_ptr == nullptr && size != 0) {
         log_print_fl (
             LOG_LEVEL_DEBUG, file, line,
             "realloc of ptr %#" PRIxPTR " to size %zu \x1b[31mreturned null\x1b[0m\n",
@@ -95,7 +95,7 @@ debug_realloc (void *ptr, size_t size, const char *file, size_t line)
  *          inserts filename and line.
  */
 void
-debug_free (void *ptr, const char *file, size_t line)
+debug_free (void *ptr, const char *file, usize line)
 {
     log_print_fl (LOG_LEVEL_DEBUG, file, line, "free ptr %p\n", ptr);
     free (ptr);
@@ -115,7 +115,7 @@ debug_free (void *ptr, const char *file, size_t line)
  *          automatically inserts filename and line.
  */
 void *
-debug_smalloc (size_t size, const char *file, size_t line)
+debug_smalloc (usize size, const char *file, usize line)
 {
     void *ptr;
 
@@ -141,7 +141,7 @@ debug_smalloc (size_t size, const char *file, size_t line)
  *          automatically inserts filename and line.
  */
 void *
-debug_srealloc (void *ptr, size_t size, const char *file, size_t line)
+debug_srealloc (void *ptr, usize size, const char *file, usize line)
 {
     void *new_ptr;
     uintptr_t old_ptr;

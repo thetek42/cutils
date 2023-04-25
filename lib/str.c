@@ -2,7 +2,6 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-#include "common.h"
 #include "cstr.h"
 
 #define STR_MIN_ALLOC 64 /* minimum allocation size for string data */
@@ -34,9 +33,9 @@ str_new (void)
  * @return  a new, empty str_t instance with given capacity.
  */
 str_t
-str_new_cap (size_t want_cap)
+str_new_cap (usize want_cap)
 {
-    size_t cap;
+    usize cap;
     str_t str;
 
     cap = max (next_pow_of_two (want_cap), STR_MIN_ALLOC);
@@ -73,9 +72,9 @@ str_new_from (const char src[static 1])
  * @return  a new, empty str_t with given data.
  */
 str_t
-str_new_from_len (size_t len, const char src[restrict len])
+str_new_from_len (usize len, const char src[restrict len])
 {
-    size_t cap;
+    usize cap;
     str_t str;
 
     cap = max (next_pow_of_two (len + 1), STR_MIN_ALLOC);
@@ -135,7 +134,7 @@ str_append (str_t str[static 1], const char src[static 1])
  *               strlen (src)`
  */
 void
-str_append_len (str_t str[static 1], size_t len, const char src[restrict len])
+str_append_len (str_t str[static 1], usize len, const char src[restrict len])
 {
     str_resize (str, str->len + len + 1);
     strncpy (str->str + str->len, src, len);
@@ -197,7 +196,7 @@ str_starts_with (const str_t str[static 1], const char find[static 1])
  * @return  true if `str` starts with `find`, else false
  */
 inline bool
-str_starts_with_len (const str_t str[static 1], size_t len,
+str_starts_with_len (const str_t str[static 1], usize len,
                      const char find[restrict len])
 {
     return strncmp (str->str, find, len) == 0;
@@ -228,7 +227,7 @@ str_ends_with (const str_t str[static 1], const char find[static 1])
  * @return  true if `str` ends with `find`, else false
  */
 inline bool
-str_ends_with_len (const str_t str[static 1], size_t len,
+str_ends_with_len (const str_t str[static 1], usize len,
                    const char find[restrict len])
 {
     return strcmp (str->str + str->len - len, find) == 0;
@@ -258,7 +257,7 @@ str_find (const str_t str[static 1], const char *find)
  *
  * @return  beginning of found substring as string index, or -1 if not found
  */
-ssize_t
+isize
 str_pos (const str_t str[static 1], const char *find)
 {
     char *pos;
@@ -315,7 +314,7 @@ str_upcase (str_t str[static 1])
  * @param   cap: the minimum amount of capacity to resize to
  */
 void
-str_resize (str_t str[static 1], size_t cap)
+str_resize (str_t str[static 1], usize cap)
 {
     cap = max (next_pow_of_two (cap), STR_MIN_ALLOC);
     if (cap > str->len && cap != str->cap) {

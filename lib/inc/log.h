@@ -1,8 +1,8 @@
 #ifndef CUTILS_LOG_H_
 #define CUTILS_LOG_H_
 
-#include <stddef.h>
 #include <stdlib.h>
+#include "common.h"
 
 #define log_error(...) log_print (LOG_LEVEL_ERROR, __VA_ARGS__) /* print a log message with level error */
 #define log_warn(...) log_print (LOG_LEVEL_WARN, __VA_ARGS__) /* print a log message with level warning */
@@ -26,6 +26,6 @@ typedef enum {
 } log_level_t;
 
 __attribute__ ((format (printf, 2, 3))) void log_print (log_level_t type, const char *fmt, ...); /* print a log message with given log level and format */
-__attribute__ ((format (printf, 4, 5))) void log_print_fl (log_level_t type, const char *file, size_t line, const char *fmt, ...); /* print a log message with given log level and format, and add the filename and line that it was called in */
+__attribute__ ((format (printf, 4, 5))) void log_print_fl (log_level_t type, const char *file, usize line, const char *fmt, ...); /* print a log message with given log level and format, and add the filename and line that it was called in */
 
 #endif // CUTILS_LOG_H_

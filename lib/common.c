@@ -8,7 +8,7 @@
  * @param   size: the number of bytes to allocate
  */
 void *
-smalloc (size_t size)
+smalloc (usize size)
 {
     void *ptr;
 
@@ -26,7 +26,7 @@ smalloc (size_t size)
  * @param   size: the new number of bytes
  */
 void *
-srealloc (void *ptr, size_t size)
+srealloc (void *ptr, usize size)
 {
 #if __STDC_VERSION__ >= 202000L // C23 or above
     if (ptr == NULL)
