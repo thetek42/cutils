@@ -15,6 +15,7 @@ parameters and return values).
 - `cstr`: Functions that expand C's `<string.h>` library for `char *` strings
 - `debug`: Debug utilities, e.g. debug messages for memory allocations
 - `enum-helper`: Helper macros for enums (header only)
+- `fs`: File system handling
 - `log`: Logging functionality with different log levels and support for
   printing source file and line information
 - `str`: A custom string type that stores length and capacity and associated

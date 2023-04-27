@@ -5,14 +5,15 @@
 
 #include "cstr.h"
 #define CUTILS_DEBUG_TRACE
-#include "debug.h"
+//#include "debug.h"
+#include "fs.h"
 #include "log.h"
 #include "common.h"
 #include "str.h"
 #include "test.h"
 #include "vec.h"
 
-test_results_t
+static test_results_t
 test_cstr (void)
 {
     test_group_t group;
@@ -53,7 +54,28 @@ test_cstr (void)
     return test_group_get_results (&group);
 }
 
-test_results_t
+static test_results_t
+test_fs (void)
+{
+    test_group_t group;
+    char *content;
+
+    group = test_group_new ();
+
+    content = fs_read_to_str ("test/lorem.txt");
+    test_add (&group, test_assert (!strcmp (content, "Lorem ipsum dolor sit amet.\n")), "fs_read_to_str correct path");
+    free (content);
+
+    content = fs_read_to_str ("test/this-file-does-not-exist.txt");
+    test_add (&group, test_assert (content == nullptr), "fs_read_to_str incorrect path");
+
+    content = fs_read_to_str (nullptr);
+    test_add (&group, test_assert (content == nullptr), "fs_read_to_str nullptr");
+
+    return test_group_get_results (&group);
+}
+
+static test_results_t
 test_str (void)
 {
     test_group_t group;
@@ -106,7 +128,7 @@ test_str (void)
     return test_group_get_results (&group);
 }
 
-test_results_t
+static test_results_t
 test_vec (void)
 {
     test_group_t group;
@@ -159,6 +181,7 @@ main (void)
 
     suite = test_suite_new ();
     test_suite_add (&suite, test_cstr);
+    test_suite_add (&suite, test_fs);
     test_suite_add (&suite, test_str);
     test_suite_add (&suite, test_vec);
     test_suite_run (&suite);
