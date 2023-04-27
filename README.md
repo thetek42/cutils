@@ -9,6 +9,7 @@ functions can be found in the header files (with a short description) as well
 as in the source files (with a detailed description and explanation of
 parameters and return values).
 
+- `color`: Color conversion and manipulation functions
 - `common`: Common utilities that are very common but did not fit in any other
   module, e.g. safe memory allocation or a few math functions
 - `cstr`: Functions that expand C's `<string.h>` library for `char *` strings

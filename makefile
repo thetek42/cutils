@@ -1,5 +1,6 @@
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror=implicit -pedantic -Og -g -Ilib/inc
+CLIBS := -lm
 
 SRCFILES := $(wildcard lib/*.c)
 SRCFILES += $(wildcard test/*.c)
@@ -21,7 +22,7 @@ test: $(TARGET)
 
 
 $(TARGET): mkdir $(OBJFILES)
-	$(CC) $(CFLAGS) $(OBJFILES) -o $(TARGET)
+	$(CC) $(CFLAGS) $(CLIBS) $(OBJFILES) -o $(TARGET)
 
 obj/%.o: %.c
 	@$(CC) $(CFLAGS) $(DEPFLAGS) $<
