@@ -68,7 +68,7 @@
     {                                                                         \
         usize i;                                                              \
         for (i = 0; i < n; i++)                                               \
-            a[i] = a[i] * b[i] + c[i];                                        \
+            a[i] = (TYPE) (a[i] * b[i]) + c[i];                               \
     }
 
 IMPLEMENT_FUNCTIONS(IMPL_VEC_ADD)

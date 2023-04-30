@@ -21,7 +21,7 @@ fs_read_to_str (const char *path)
 
     if (path && (fp = fopen (path, "r"))) {
         fseek (fp, 0, SEEK_END);
-        len = ftell (fp);
+        len = (usize) ftell (fp);
         fseek (fp, 0, SEEK_SET);
 
         buf = smalloc (len + 1);

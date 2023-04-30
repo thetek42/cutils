@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror=implicit -pedantic -Og -g -Ilib/inc
+CFLAGS := -Wall -Wextra -Werror=implicit -Wconversion -Wdouble-promotion -pedantic -g3 -fsanitize=address -fsanitize=undefined -Ilib/inc
 CLIBS := -lm
 
 SRCFILES := $(wildcard lib/*.c)
